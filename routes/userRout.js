@@ -5,7 +5,7 @@ const userRout = require('express').Router();
 const { getUser } = require('../controllers/userController');
 
 // запрос приходит сюда и включается getUser
-userRout.get('/', getUser);
+userRout.get('/me', getUser);
 
 // Экспортируем рут - он потом используется в app.js
 module.exports = { userRout };

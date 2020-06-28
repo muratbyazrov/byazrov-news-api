@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 // Подключим руты
 const { userRout } = require('./routes/userRout');
 const { articleRout } = require('./routes/articleRout');
+const { signup, signin } = require('./routes/index');
 
 // Так мы создали приложение на экспресс
 const app = express();
@@ -20,9 +21,11 @@ const { PORT = 3000 } = process.env;
 // Собрали приходящие пакеты в json
 app.use(bodyParser.json());
 
-// Подключили приложение к запросам
-app.use('/users/me', userRout);
+// Подключили приложениея рутам, а рут обращается к контроллеру
+app.use('/users', userRout);
 app.use('/articles', articleRout);
+app.use('/signup', signup);
+app.use('/signin', signin);
 
 // Для всех неправильных запросов к апи
 app.all('/*', (req, res) => {
