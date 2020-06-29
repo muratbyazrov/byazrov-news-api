@@ -7,6 +7,12 @@ const mongoose = require('mongoose');
 // Этот модуль объединяет приходящие пакеты из запроса. Они доступны так: const { body } = req;
 const bodyParser = require('body-parser');
 
+// модуль, чтобы удобно извлекать токен из куков
+const cookieParser = require('cookie-parser');
+
+// мидлвер из библиотеки celebrate для предвартельной ошибки. См код рута index
+const { errors } = require('celebrate');
+
 // Подключим руты
 const { userRout } = require('./routes/userRout');
 const { articleRout } = require('./routes/articleRout');
@@ -21,6 +27,9 @@ const { PORT = 3000 } = process.env;
 // Собрали приходящие пакеты в json
 app.use(bodyParser.json());
 
+// Нужно извлечь куки из запроса перед основными запросами
+app.use(cookieParser());
+
 // Подключили приложениея рутам, а рут обращается к контроллеру
 app.use('/users', userRout);
 app.use('/articles', articleRout);
@@ -31,6 +40,9 @@ app.use('/signin', signin);
 app.all('/*', (req, res) => {
   res.status(404).send({ message: 'Упс, Запрашиваемый ресурс не найден' });
 });
+
+// обработчик ошибок celebrate
+app.use(errors());
 
 // Централизовання обработка ошибок
 // eslint-disable-next-line no-unused-vars

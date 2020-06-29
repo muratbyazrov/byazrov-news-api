@@ -43,12 +43,12 @@ const articleSchema = new mongoose.Schema({
       },
     },
   },
-/*   owner: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    // required: true,
+    required: true,
     select: false,
-  }, */
+  },
 });
 
 module.exports = mongoose.model('article', articleSchema);

@@ -28,5 +28,4 @@ signin.post('/', celebrate({
 
 module.exports = { signup, signin };
 
-
 // Не работает селебрейт - разобарться почему
