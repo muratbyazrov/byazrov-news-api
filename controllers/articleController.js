@@ -29,12 +29,12 @@ module.exports.createArticle = (req, res, next) => {
 // Обработчик удаления карточек
 module.exports.deleteArticle = async (req, res, next) => {
   await Article.findById(req.params.articleId)
+    // база данных по умолчания поле owner не отдает
     .select('+owner')
     .orFail(new NotFounError('Такой статьи нет'))
     .then((article) => {
       // JSON в строку - берем поле owner и сравниваем с id пользователя
       if (JSON.stringify(article.owner) !== JSON.stringify(req.user._id)) {
-        console.log(article, req.user._id);
         // генерируется ошибка и переходим в след. обработчик ошибки
         throw new Forbidden('Нельзя удалить чужую статью');
       }

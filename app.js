@@ -18,6 +18,9 @@ const { userRout } = require('./routes/userRout');
 const { articleRout } = require('./routes/articleRout');
 const { signup, signin } = require('./routes/index');
 
+// подключили логгеры ошибок и запросов
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 // Так мы создали приложение на экспресс
 const app = express();
 
@@ -30,6 +33,8 @@ app.use(bodyParser.json());
 // Нужно извлечь куки из запроса перед основными запросами
 app.use(cookieParser());
 
+app.use(requestLogger); // подключаем логгер запросов
+
 // Подключили приложениея рутам, а рут обращается к контроллеру
 app.use('/users', userRout);
 app.use('/articles', articleRout);
@@ -40,6 +45,8 @@ app.use('/signin', signin);
 app.all('/*', (req, res) => {
   res.status(404).send({ message: 'Упс, Запрашиваемый ресурс не найден' });
 });
+
+app.use(errorLogger); // подключаем логгер ошибок
 
 // обработчик ошибок celebrate
 app.use(errors());
