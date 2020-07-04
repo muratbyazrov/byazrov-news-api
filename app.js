@@ -10,6 +10,16 @@ const bodyParser = require('body-parser');
 // модуль, чтобы удобно извлекать токен из куков
 const cookieParser = require('cookie-parser');
 
+// модуль для безопасности
+const helmet = require('helmet');
+// Для защиты от DDoS.
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
 // мидлвер из библиотеки celebrate для предвартельной ошибки. См код рута index
 const { errors } = require('celebrate');
 
@@ -26,6 +36,11 @@ const app = express();
 
 // Достали из перем. окружения порт
 const { PORT = 3000 } = process.env;
+
+// модуль для безопасности
+app.use(helmet());
+// Для защиты от DDoS.
+app.use(limiter);
 
 // Собрали приходящие пакеты в json
 app.use(bodyParser.json());
