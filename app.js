@@ -4,6 +4,9 @@ const express = require('express');
 // mongoos помогает подружить JS с документами в MongoDB
 const mongoose = require('mongoose');
 
+// чтобы читать данные их .env
+require('dotenv').config();
+
 // Этот модуль объединяет приходящие пакеты из запроса. Они доступны так: const { body } = req;
 const bodyParser = require('body-parser');
 
@@ -35,8 +38,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const app = express();
 
 // Достали из перем. окружения порт
-const { PORT = 3000 } = process.env;
-
+const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
 // модуль для безопасности
 app.use(helmet());
 // Для защиты от DDoS.
@@ -80,7 +82,7 @@ app.use((err, req, res, next) => {
 });
 
 // подключили монго. Тут меняется только название БД - byazrov-news
-mongoose.connect('mongodb://localhost:27017/byazrov-news', {
+mongoose.connect(DATA_BASE, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
