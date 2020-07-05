@@ -15,16 +15,12 @@ const cookieParser = require('cookie-parser');
 
 // модуль для безопасности
 const helmet = require('helmet');
-// Для защиты от DDoS.
-const rateLimit = require('express-rate-limit');
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
 
 // мидлвер из библиотеки celebrate для предвартельной ошибки. См код рута index
 const { errors } = require('celebrate');
+
+// Для защиты от DDoS.
+const { limiter } = require('./middlewares/limiter');
 
 // Подключим руты
 const { userRout } = require('./routes/userRout');
@@ -33,6 +29,8 @@ const { signup, signin } = require('./routes/index');
 
 // подключили логгеры ошибок и запросов
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+// центральный обработчик ошибок
+const { errorCenter } = require('./middlewares/error-center');
 
 // Так мы создали приложение на экспресс
 const app = express();
@@ -69,17 +67,7 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 
 // Централизовання обработка ошибок
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    // проверяем статус и выставляем сообщение в зависимости от него
-    message: statusCode === 500
-      ? 'Упс, На сервере произошла ошибка'
-      : message,
-  });
-});
+app.use(errorCenter);
 
 // подключили монго. Тут меняется только название БД - byazrov-news
 mongoose.connect(DATA_BASE, {
