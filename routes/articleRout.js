@@ -27,10 +27,22 @@ articleRout.get('/', auth, getArticles);
 // создать карточку статьи
 articleRout.post('/', celebrate({
   body: Joi.object().keys({
-    keyword: Joi.string().required(),
-    title: Joi.string().required(),
-    text: Joi.string().required(),
-    date: Joi.string().required(),
+    keyword: Joi.string().required()
+      .messages({
+        'string.empty': 'Поле keyword должно быть заполнено',
+      }),
+    title: Joi.string().required()
+      .messages({
+        'string.empty': 'Поле title должно быть заполнено',
+      }),
+    text: Joi.string().required()
+      .messages({
+        'string.empty': 'Поле text должно быть заполнено',
+      }),
+    date: Joi.string().required()
+      .messages({
+        'string.empty': 'Поле date должно быть заполнено',
+      }),
     source: Joi.string().required(),
     // создали валидатор на основе библиотки validator
     link: Joi.required().custom((value) => {
@@ -49,7 +61,8 @@ articleRout.post('/', celebrate({
 // удалить карточку статьи
 articleRout.delete('/:articleId', celebrate({
   params: Joi.object().keys({
-    articleId: Joi.objectId(),
+    articleId: Joi.objectId()
+      .message('Неправильное id статьи'),
   }),
 }), auth, deleteArticle);
 
