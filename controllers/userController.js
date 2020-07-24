@@ -53,9 +53,9 @@ module.exports.login = (req, res, next) => {
       // запишем токен в куки. Принимает ключ и значение ключа jwt:token
       res.cookie('jwt', token, {
         maxAge: 86400 * 7,
-        httpOnly: true,
+        // httpOnly: true,
         // чтобы браузер не отправлял куки, если запрос с другого домена
-        sameSite: true,
+        // sameSite: true,
       });
       res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
     })
