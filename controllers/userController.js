@@ -55,7 +55,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 86400 * 7,
         httpOnly: true,
         // чтобы браузер не отправлял куки, если запрос с другого домена
-        sameSite: true,
+        // sameSite: true,
       });
       res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
     })
