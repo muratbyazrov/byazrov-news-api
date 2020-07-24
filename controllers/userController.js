@@ -56,6 +56,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         // чтобы браузер не отправлял куки, если запрос с другого домена
         // sameSite: true,
+        domain: 'http://localhost:8080/',
       });
       res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
     })
