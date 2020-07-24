@@ -40,7 +40,7 @@ const app = express();
 
 // настройки корс
 const corsOptions = {
-  origin: 'http://localhost:8081',
+  origin: 'http://localhost:8080',
   credentials: true,
 };
 // активируем настройки корс
