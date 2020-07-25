@@ -15,9 +15,10 @@ const Unauthorized = require('../errors/unauthorized');
 // обработчик, отдающий данные пользователя
 module.exports.getUser = (req, res, next) => {
   // находим пользователя
-  User.findOne({})
-    .populate('user')
-    .then((user) => res.send({ data: user }))
+  User.findById(req.user._id)
+    .then((user) => {
+      res.send({ data: user });
+    })
     // то же, что .catch(err => next(err)) - с аргументом next идут в центр ошибок
     .catch(next);
 };
