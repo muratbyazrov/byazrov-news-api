@@ -67,13 +67,9 @@ module.exports.login = (req, res, next) => {
 
 module.exports.deleteCookie = (req, res, next) => {
   res.cookie('jwt', '', {
-    path: '/',
-    signed: false,
     maxAge: -1,
-    expires: new Date(0),
-  })
-    .then(() => {
-      console.log('Выход выполнен');
-    })
+    httpOnly: true,
+  });
+  res.send({ message: 'Выход выполнен' })
     .catch((err) => next(new BadReq(err.message)));
 };
