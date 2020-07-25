@@ -64,3 +64,13 @@ module.exports.login = (req, res, next) => {
     // создается экземпляр ошибки авторизации
     .catch((err) => next(new Unauthorized(err.message)));
 };
+
+module.exports.deleteCookie = (req, res, next) => {
+  res.cookie('jwt', '', {
+    path: '/',
+    signed: false,
+    maxAge: -1,
+    expires: new Date(0),
+  })
+    .catch((err) => next(new BadReq(err.message)));
+};

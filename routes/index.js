@@ -1,9 +1,10 @@
 // для навешивания обработчика на приложение
 const signup = require('express').Router();
 const signin = require('express').Router();
+const signout = require('express').Router();
 
 // Экспортировали обработчики
-const { createUser, login } = require('../controllers/userController');
+const { createUser, login, deleteCookie } = require('../controllers/userController');
 
 // предварительная валидация
 const { createUserValidate, userLoginValidate } = require('../middlewares/celebrate-error');
@@ -14,4 +15,7 @@ signup.post('/', createUserValidate, createUser);
 // предвартельно валидируем данные при логировании
 signin.post('/', userLoginValidate, login);
 
-module.exports = { signup, signin };
+// выходим из аккаунта
+signout.post('/', deleteCookie);
+
+module.exports = { signup, signin, signout };
