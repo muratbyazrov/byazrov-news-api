@@ -51,7 +51,7 @@ const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = pr
 // модуль для безопасности
 app.use(helmet());
 // Для защиты от DDoS.
-app.use(limiter);
+// app.use(limiter);
 
 // Собрали приходящие пакеты в json
 app.use(bodyParser.json());
