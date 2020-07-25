@@ -72,5 +72,8 @@ module.exports.deleteCookie = (req, res, next) => {
     maxAge: -1,
     expires: new Date(0),
   })
+    .then(() => {
+      console.log('Выход выполнен');
+    })
     .catch((err) => next(new BadReq(err.message)));
 };

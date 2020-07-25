@@ -28,7 +28,7 @@ const { limiter } = require('./middlewares/limiter');
 // Подключим руты
 const { userRout } = require('./routes/userRout');
 const { articleRout } = require('./routes/articleRout');
-const { signup, signin } = require('./routes/index');
+const { signup, signin, signout } = require('./routes/index');
 
 // подключили логгеры ошибок и запросов
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -76,6 +76,7 @@ app.use('/users', userRout);
 app.use('/articles', articleRout);
 app.use('/signup', signup);
 app.use('/signin', signin);
+app.use('/signout', signout);
 
 // Для всех неправильных запросов к апи
 app.all('/*', (req, res) => {
