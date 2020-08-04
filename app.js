@@ -51,20 +51,10 @@ const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = pr
 // модуль для безопасности
 app.use(helmet());
 // Для защиты от DDoS.
-// app.use(limiter);
+app.use(limiter);
 
 // Собрали приходящие пакеты в json
 app.use(bodyParser.json());
-
-// разрешаем запросы с фронтенда
-/* app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Credentials', true);
-
-  next();
-}); */
 
 // Нужно извлечь куки из запроса перед основными запросами
 app.use(cookieParser());
