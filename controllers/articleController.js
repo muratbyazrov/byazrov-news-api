@@ -9,12 +9,12 @@ const Forbidden = require('../errors/forbidden');
 module.exports.getArticles = (req, res, next) => {
   // находим все карточки
   Article.find({})
-    .then((articles) => res.send({ data: articles }))
+    .then((articles) => res.send({ articles }))
     // то же, что .catch(err => next(err)) - с аргументом next идут в центр ошибок
     .catch(next);
 };
 
-// Обработчик удаления создания статей
+// Обработчик создания статей
 module.exports.createArticle = (req, res, next) => {
   const {
     keyword, title, text, date, source, link, image,

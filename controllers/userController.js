@@ -54,7 +54,7 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       // запишем токен в куки. Принимает ключ и значение ключа jwt:token
       res.cookie('jwt', token, {
-        maxAge: 86400 * 7,
+        maxAge: 864000 * 7,
         httpOnly: true,
         // чтобы браузер не отправлял куки, если запрос с другого домена
         // sameSite: true,
