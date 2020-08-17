@@ -19,9 +19,6 @@ const helmet = require('helmet');
 // мидлвер из библиотеки celebrate для предвартельной ошибки. См код рута index
 const { errors } = require('celebrate');
 
-// подключили корс
-const cors = require('cors');
-
 // Для защиты от DDoS.
 const { limiter } = require('./middlewares/limiter');
 
@@ -38,13 +35,13 @@ const { errorCenter } = require('./middlewares/error-center');
 // Так мы создали приложение на экспресс
 const app = express();
 
-// настройки корс
-const corsOptions = {
-  origin: 'http://localhost:8080',
-  credentials: true,
-};
-// активируем настройки корс
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://praktikum.tk');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+
+  next();
+});
 
 // Достали из перем. окружения порт
 const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
