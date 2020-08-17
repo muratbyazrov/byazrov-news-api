@@ -47,7 +47,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Достали из перем. окружения порт
-const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
+const { PORT = 3001, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
 // модуль для безопасности
 app.use(helmet());
 // Для защиты от DDoS.
