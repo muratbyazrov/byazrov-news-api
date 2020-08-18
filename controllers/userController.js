@@ -47,9 +47,12 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   // достали из переменной окружения секретный ключ. Переменная в файле .env
   const { JWT_SECRET = 'secret-key' } = process.env;
-  // используем статический метод (смотри в модели) чтобы провермть введенные логин и пароль
-  /* return User.findUserByCredentials(email, password)
-    .then((user) => {
+  // используем статический метод (смотри в модели) чтобы проверить введенные логин и пароль
+  return User.findUserByCredentials(email, password)
+    .then(() => {
+      res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
+    });
+    /* .then((user) => {
       // создаем токен методом sign. Принимает пейлоуд и ключевое слово
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       // запишем токен в куки. Принимает ключ и значение ключа jwt:token
@@ -63,7 +66,6 @@ module.exports.login = (req, res, next) => {
     })
     // создается экземпляр ошибки авторизации
     .catch((err) => next(new Unauthorized(err.message))); */
-  res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
 };
 
 module.exports.deleteCookie = (req, res, next) => {
