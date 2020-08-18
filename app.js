@@ -19,6 +19,9 @@ const helmet = require('helmet');
 // мидлвер из библиотеки celebrate для предвартельной ошибки. См код рута index
 const { errors } = require('celebrate');
 
+// подключили корс
+const cors = require('cors');
+
 // Для защиты от DDoS.
 const { limiter } = require('./middlewares/limiter');
 
@@ -35,15 +38,13 @@ const { errorCenter } = require('./middlewares/error-center');
 // Так мы создали приложение на экспресс
 const app = express();
 
-// разрешаем запросы с фронтенда
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Credentials', true);
-
-  next();
-});
+// настройки корс
+const corsOptions = {
+  origin: ['https://api.byazrov-news.ga', 'http://localhost:8080', 'https://muratbyazrov.github.io/byazrov-news-frontend/'],
+  credentials: true,
+};
+// активируем настройки корс
+app.use(cors(corsOptions));
 
 // Достали из перем. окружения порт
 const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
