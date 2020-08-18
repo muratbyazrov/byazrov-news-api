@@ -48,10 +48,7 @@ module.exports.login = (req, res, next) => {
   // достали из переменной окружения секретный ключ. Переменная в файле .env
   const { JWT_SECRET = 'secret-key' } = process.env;
   // используем статический метод (смотри в модели) чтобы проверить введенные логин и пароль
-  return User.findUserByCredentials(email, password)
-    .then(() => {
-      res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
-    });
+  return User.findUserByCredentials(email, password);
     /* .then((user) => {
       // создаем токен методом sign. Принимает пейлоуд и ключевое слово
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
