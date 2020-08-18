@@ -47,7 +47,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Достали из перем. окружения порт
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
 // модуль для безопасности
 app.use(helmet());
 // Для защиты от DDoS.
@@ -82,7 +82,7 @@ app.use(errors());
 app.use(errorCenter);
 
 // подключили монго. Тут меняется только название БД - byazrov-news
-mongoose.connect('mongodb+srv://muratbyazrov:karnegid@cluster0.yrj76.mongodb.net/byazrov-news', {
+mongoose.connect(DATA_BASE, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
