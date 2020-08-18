@@ -25,7 +25,7 @@ module.exports.getUser = (req, res, next) => {
 
 // обработчик создания нового пользователя
 module.exports.createUser = (req, res, next) => {
-  // берем данные из тела запроса
+  /* // берем данные из тела запроса
   const { email, password, name } = req.body;
   // метод bcrypt создает для входящего пароля хеш с солью 10.
   bcrypt.hash(password, 10)
@@ -38,7 +38,8 @@ module.exports.createUser = (req, res, next) => {
         }))
         // Создается экзмепляр 'плохого запроса'
         .catch((err) => next(new BadReq(err.message)));
-    });
+    }); */
+    res.send({ message: 'Это регистрация, детка!' });
 };
 
 // Обработчик логгирования
@@ -47,9 +48,9 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   // достали из переменной окружения секретный ключ. Переменная в файле .env
   const { JWT_SECRET = 'secret-key' } = process.env;
-  // используем статический метод (смотри в модели) чтобы проверить введенные логин и пароль
-  return User.findUserByCredentials(email, password);
-    /* .then((user) => {
+  // используем статический метод (смотри в модели) чтобы провермть введенные логин и пароль
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
       // создаем токен методом sign. Принимает пейлоуд и ключевое слово
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       // запишем токен в куки. Принимает ключ и значение ключа jwt:token
@@ -57,12 +58,12 @@ module.exports.login = (req, res, next) => {
         maxAge: 864000 * 7,
         httpOnly: true,
         // чтобы браузер не отправлял куки, если запрос с другого домена
-        sameSite: true,
+        // sameSite: true,
       });
       res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
     })
     // создается экземпляр ошибки авторизации
-    .catch((err) => next(new Unauthorized(err.message))); */
+    .catch((err) => next(new Unauthorized(err.message)));
 };
 
 module.exports.deleteCookie = (req, res, next) => {
