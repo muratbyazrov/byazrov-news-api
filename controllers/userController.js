@@ -29,10 +29,7 @@ module.exports.createUser = (req, res, next) => {
   const { email, password, name } = req.body;
   // метод bcrypt создает для входящего пароля хеш с солью 10.
   bcrypt.hash(password, 10)
-    .then(() => {
-      res.send({ message: 'Регистрация, детка!' });
-    })
-    /* .then((hash) => {
+    .then((hash) => {
       User.create({
         email, password: hash, name,
       })
@@ -41,7 +38,7 @@ module.exports.createUser = (req, res, next) => {
         }))
         // Создается экзмепляр 'плохого запроса'
         .catch((err) => next(new BadReq(err.message)));
-    }); */
+    });
 };
 
 // Обработчик логгирования
