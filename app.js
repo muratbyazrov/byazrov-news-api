@@ -40,7 +40,7 @@ const app = express();
 
 // настройки корс
 const corsOptions = {
-  origin: ['https://api.byazrov-news.ga', 'http://localhost:8080', 'https://muratbyazrov.github.io/byazrov-news-frontend/'],
+  origin: ['http://localhost:8080', 'https://muratbyazrov.github.io/byazrov-news-frontend/', 'https://byazrov-news.ga/', 'http://www.byazrov-news.ga', 'https://www.byazrov-news.ga'],
   credentials: true,
 };
 // активируем настройки корс
