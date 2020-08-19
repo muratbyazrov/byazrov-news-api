@@ -19,8 +19,8 @@ const helmet = require('helmet');
 // мидлвер из библиотеки celebrate для предвартельной ошибки. См код рута index
 const { errors } = require('celebrate');
 
-// подключили корс
-const cors = require('cors');
+/* // подключили корс
+const cors = require('cors'); */
 
 // Для защиты от DDoS.
 const { limiter } = require('./middlewares/limiter');
@@ -38,13 +38,39 @@ const { errorCenter } = require('./middlewares/error-center');
 // Так мы создали приложение на экспресс
 const app = express();
 
-// настройки корс
+/* // настройки корс
 const corsOptions = {
-  origin: ['http://localhost:8080', 'https://localhost:8080', 'http://newsapi.org', 'http://byazrov-news.ga', 'https://byazrov-news.ga', 'http://www.byazrov-news.ga', 'https://www.byazrov-news.ga'],
+  origin: ['http://localhost:8080',
+    'https://localhost:8080',
+    'http://newsapi.org',
+    'http://byazrov-news.ga', 'https://byazrov-news.ga',
+    'http://www.byazrov-news.ga', 'https://www.byazrov-news.ga',
+  ],
   credentials: true,
 };
 // активируем настройки корс
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); */
+
+// Массив разешённых доменов
+const allowedCors = [
+  'http://localhost:8080',
+  'http://newsapi.org',
+  'localhost:3000',
+  'http://byazrov-news.ga',
+  'https://byazrov-news.ga',
+  'http://www.byazrov-news.ga',
+  'https://www.byazrov-news.ga',
+];
+
+app.use((req, res, next) => {
+  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+
+  if (allowedCors.includes(origin)) { // Проверяем, что знач. origin есть среди разрешённых доменов
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
 
 // Достали из перем. окружения порт
 const { PORT = 3000, DATA_BASE = 'mongodb://localhost:27017/byazrov-news' } = process.env;
