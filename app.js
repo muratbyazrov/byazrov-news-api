@@ -43,7 +43,7 @@ const corsOptions = {
   origin: [
     'http://localhost:8080',
     'https://localhost:8080',
-    'http://newsapi.org',
+    'http://newsapi.org/v2',
     'http://byazrov-news.ga', 'https://byazrov-news.ga',
     'http://www.byazrov-news.ga', 'https://www.byazrov-news.ga',
   ],
