@@ -67,6 +67,7 @@ app.use((req, res, next) => {
 
   if (allowedCors.includes(origin)) { // Проверяем, что знач. origin есть среди разрешённых доменов
     res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
   }
 
   next();
