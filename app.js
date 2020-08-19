@@ -42,8 +42,6 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://localhost:8080',
-    'https://localhost:8080',
-    'http://newsapi.org',
     'http://byazrov-news.ga', 'https://byazrov-news.ga',
     'http://www.byazrov-news.ga', 'https://www.byazrov-news.ga',
     'https://muratbyazrov.github.io',
