@@ -46,8 +46,7 @@ const corsOptions = {
     'http://newsapi.org',
     'http://byazrov-news.ga', 'https://byazrov-news.ga',
     'http://www.byazrov-news.ga', 'https://www.byazrov-news.ga',
-    'http://muratbyazrov.github.io/byazrov-news-frontend/',
-    'https://muratbyazrov.github.io/byazrov-news-frontend/',
+    'https://muratbyazrov.github.io',
   ],
   credentials: true,
 };
