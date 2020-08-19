@@ -51,26 +51,10 @@ const corsOptions = {
 // активируем настройки корс
 app.use(cors(corsOptions)); */
 
-// Массив разешённых доменов
-const allowedCors = [
-  'http://localhost:8080',
-  'http://newsapi.org',
-  'localhost:3000',
-  'http://byazrov-news.ga',
-  'https://byazrov-news.ga',
-  'http://www.byazrov-news.ga',
-  'https://www.byazrov-news.ga',
-];
-
 app.use((req, res, next) => {
-  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
-
-  if (allowedCors.includes(origin)) { // Проверяем, что знач. origin есть среди разрешённых доменов
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', '*');
-  }
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
 
   next();
 });
