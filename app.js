@@ -48,9 +48,7 @@ const corsOptions = {
     'https://muratbyazrov.github.io',
   ],
   credentials: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
+  methods: 'GET,POST,DELETE',
 };
 
 // активируем настройки корс
