@@ -54,11 +54,11 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       // запишем токен в куки. Принимает ключ и значение ключа jwt:token
       res.cookie('jwt', token, {
-        maxAge: 864000 * 7,
+        maxAge: 3600000 * 24 * 3, // жизнь кук 3 дня
         httpOnly: true,
         // чтобы браузер не отправлял куки, если запрос с другого домена
-        sameSite: 'none',
-        secure: true,
+        sameSite: 'none', // требования браузера при кросс-доменных запросах
+        secure: true, // требования браузера при кросс-доменных запросах
       });
       res.send({ message: 'авторизация прошла успешна. Токен записан в куки' });
     })
